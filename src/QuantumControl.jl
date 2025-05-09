@@ -22,6 +22,7 @@ module Controls
     include("reexport.jl")
     @reexport_members(QuantumPropagators_Controls)
     include("derivs.jl")
+    include("derivs_dip.jl")
     export get_control_deriv, get_control_derivs
 end
 

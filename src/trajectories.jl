@@ -3,6 +3,7 @@ import QuantumPropagators
 using Printf
 
 using QuantumPropagators.Generators: Generator, Operator
+using QuantumPropagators.Generators_dip: Generator_dip
 using QuantumPropagators.Controls: _get_parameters
 import QuantumPropagators.Controls: substitute, get_controls, get_parameters
 
@@ -223,6 +224,11 @@ end
 function dynamical_generator_adjoint(G::Generator)
     ops = [dynamical_generator_adjoint(op) for op in G.ops]
     return Generator(ops, G.amplitudes)
+end
+
+function dynamical_generator_adjoint(G::Generator_dip)
+    ops = [dynamical_generator_adjoint(op) for op in G.ops]
+    return Generator_dip(ops, G.amplitudes, G.dresses)
 end
 
 function dynamical_generator_adjoint(G::Operator)
