@@ -146,7 +146,6 @@ function init_prop_trajectory(
     level = verbose ? Logging.Info : Logging.Debug
     @logmsg level _msg kwargs = _kwargs_dict
     try
-        println(_kwargs_dict...)
         return init_prop(initial_state, traj.generator, tlist; verbose, _kwargs_dict...)
     catch exception
         msg = "Cannot initialize propagation for trajectory"
