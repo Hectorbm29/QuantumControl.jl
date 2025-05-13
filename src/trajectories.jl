@@ -228,7 +228,11 @@ end
 
 function dynamical_generator_adjoint(G::Generator_dip)
     ops = [dynamical_generator_adjoint(op) for op in G.ops]
-    return Generator_dip(ops, G.amplitudes, G.dresses)
+    if isnothing(G.dresses_derivatives)
+        return Generator_dip(ops, G.amplitudes, G.dresses)
+    else 
+        return Generator_dip(ops, G.amplitudes, G.dresses; dresses_derivatives=G.dresses_derivatives)
+    end
 end
 
 function dynamical_generator_adjoint(G::Operator)
