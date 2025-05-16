@@ -28,30 +28,6 @@ For constant generators, e.g. an [`Operator`](@ref), the result is always
 `nothing`.
 """
 
-"""
-function get_control_deriv(generator::Generator, control)
-    terms = []
-    drift_offset = length(generator.ops) - length(generator.amplitudes)
-    for (i, ampl) in enumerate(generator.amplitudes)
-        ∂a╱∂ϵ = get_control_deriv(ampl, control)
-        if ∂a╱∂ϵ == 0.0
-            continue
-        elseif ∂a╱∂ϵ == 1.0
-            mu_op = generator.ops[i+drift_offset]
-            push!(terms, mu_op)
-        else
-            mu_op = generator.ops[i+drift_offset]
-            push!(terms, (mu_op, ∂a╱∂ϵ))
-        end
-    end
-    if length(terms) == 0
-        return nothing
-    else
-        return _make_generator(terms...)
-    end
-end
-"""
-
 
 function get_control_deriv(generator::Generator_dip, control)
     terms = []
@@ -116,6 +92,7 @@ function get_control_deriv(generator::Generator_dip, control)
     if length(terms) == 0
         return nothing
     else
+        println("Making generator with amplitudes: ", amplitudes)
         return _make_generator_dip(terms...; ampl_vec=amplitudes)
     end
 end
