@@ -72,7 +72,6 @@ function get_control_deriv(generator::Generator, control)
     if length(terms) == 0
         return nothing
     else
-        println("Making generator after get_control_deriv")
         return _make_generator(terms...)
     end
 end

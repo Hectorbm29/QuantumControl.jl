@@ -92,7 +92,6 @@ function get_control_deriv(generator::Generator_dip, control)
     if length(terms) == 0
         return nothing
     else
-        println("Making generator with amplitudes: ", amplitudes)
         return _make_generator_dip(terms...; ampl_vec=amplitudes)
     end
 end
