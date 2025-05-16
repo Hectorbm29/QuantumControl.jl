@@ -1,33 +1,25 @@
 using QuantumPropagators.Generators: Operator, evaluate
 using QuantumPropagators.Generators_dip: Generator_dip, _make_generator_dip, evaluate
-using QuantumPropagators.Amplitudes: LockedAmplitude, ShapedAmplitude
 
 
-
-@doc raw"""
-Get the derivative of the generator ``G`` w.r.t. the control ``ϵ(t)``.
+"""
+Get the derivative of the generator ``G_dip`` w.r.t. the control ``ϵ(t)``.
 
 ```julia
-μ  = get_control_deriv(generator, control)
+μ  = get_control_deriv(generator_dip, control)
 ```
 
 returns `nothing` if the `generator` (Hamiltonian or Liouvillian) does not
 depend on `control`, or a generator
 
 ```math
-μ = \frac{∂G}{∂ϵ(t)}
+μ = \frac{∂G_dip}{∂ϵ(t)}
 ```
 
-otherwise. For linear control terms, `μ` will be a static operator, e.g. an
-`AbstractMatrix` or an [`Operator`](@ref). For non-linear controls, `μ` will be
-time-dependent, e.g. a [`Generator`](@ref). In either case,
-[`evaluate`](@ref) should be used to evaluate `μ` into a constant operator
-for particular values of the controls and a particular point in time.
-
-For constant generators, e.g. an [`Operator`](@ref), the result is always
-`nothing`.
+otherwise. The generator is a `Generator_dip` object, which is a generalization of
+the `Generator` object to include the dressing operators. To achieve this, the analytical
+derivatives of the dressing operators with respect to the amplitudes are required. 
 """
-
 
 function get_control_deriv(generator::Generator_dip, control)
     terms = []
@@ -132,6 +124,10 @@ function get_dress_deriv(generator::Generator_dip, dress, ampl)
 
     d_derivs = generator.dresses_derivatives 
 
-    return d_derivs[d_index, a_index]
+    if isnothing(d_derivs)
+        error("The generator does not have analytical derivatives for the dresses\n")
+    else
+        return d_derivs[d_index, a_index]
+    end
 
 end
