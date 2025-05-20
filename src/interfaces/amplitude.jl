@@ -43,7 +43,7 @@ function check_amplitude(
     for_gradient_optimization=true,
     quiet=false,
     _message_prefix=""  # for recursive calling
-)
+    )
 
     px = _message_prefix
     success =

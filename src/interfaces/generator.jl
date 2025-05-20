@@ -54,7 +54,7 @@ function check_generator(
     atol=1e-15,
     quiet=false,
     _message_prefix=""  # for recursive calling
-)
+    )
 
     px = _message_prefix
 
