@@ -127,7 +127,7 @@ function get_dress_deriv(generator::Generator_dip, dress, ampl)
     if isnothing(d_derivs)
         error("The generator does not have analytical derivatives for the dresses\n")
     else
-        return d_derivs[d_index, a_index]
+        return d_derivs[a_index, d_index]
     end
 
 end
